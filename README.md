@@ -93,6 +93,36 @@ mission_logs   (id, missionId, message, loggedAt)
 
 Full interactive docs: `http://localhost:8080/swagger-ui.html`
 
+## ✅ Verified Setup
+
+This project has been built and run end-to-end with `docker compose up --build`
+against a real PostgreSQL instance (no mocks). Verified on Windows 11 with
+Docker Desktop (WSL2 backend), Docker 29.5.3 / Compose v5.1.4:
+
+- `uav-postgres` container reaches `healthy` status before the backend starts
+  (compose `depends_on.condition: service_healthy`).
+- `uav-backend` builds via the multi-stage `Dockerfile` (Maven build stage +
+  JRE runtime stage) and boots successfully on port `8080`.
+- `DataSeeder` populates the demo admin user and sample UAVs/missions on first boot.
+- `POST /api/auth/login` issues a working JWT for the seeded `admin` / `admin123` user.
+- `POST /api/missions/{id}/assign` was exercised against the live database:
+  - Two pending missions were each assigned to the closest eligible `AVAILABLE` UAV
+    (UAV status flipped to `ASSIGNED`, mission status flipped to `ASSIGNED`).
+  - A third mission created after all UAVs became unavailable correctly returned
+    `409 Conflict` with `"No eligible UAV found..."` from the no-eligible-UAV path.
+- `GET /api/dashboard/stats` reflected the updated counts after assignment
+  (`availableUavs` dropped to 0, `activeMissions` rose to 2).
+- The frontend (`npm run dev`) serves correctly on port `5173` and its Vite
+  dev-server proxy (`vite.config.ts`) forwards `/api/*` calls to the backend.
+
+To reproduce:
+```bash
+docker compose up --build
+curl -X POST http://localhost:8080/api/auth/login \
+  -H "Content-Type: application/json" \
+  -d '{"username":"admin","password":"admin123"}'
+```
+
 ## Getting Started
 
 ### Option A — Docker Compose (recommended)
