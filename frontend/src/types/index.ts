@@ -37,6 +37,22 @@ export interface AssignmentResult {
   assignmentScore: number;
   status: string;
   assignedAt: string;
+  uavBatteryLevel: number;
+  uavMaxRangeKm: number;
+  reasons: string[];
+}
+
+export interface AssignmentMapEntry {
+  assignmentId: number;
+  uavId: number;
+  uavName: string;
+  uavLatitude: number;
+  uavLongitude: number;
+  missionId: number;
+  missionTitle: string;
+  missionLatitude: number;
+  missionLongitude: number;
+  status: string;
 }
 
 export interface DashboardStats {

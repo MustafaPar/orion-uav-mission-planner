@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { missionApi } from '../api/missionApi';
-import type { Mission, MissionPriority, MissionType } from '../types';
+import type { AssignmentResult, Mission, MissionPriority, MissionType } from '../types';
 
 const emptyMission: Mission = {
   title: '',
@@ -16,7 +16,7 @@ export default function MissionPage() {
   const [missions, setMissions] = useState<Mission[]>([]);
   const [form, setForm] = useState<Mission>(emptyMission);
   const [error, setError] = useState<string | null>(null);
-  const [info, setInfo] = useState<string | null>(null);
+  const [result, setResult] = useState<AssignmentResult | null>(null);
 
   const load = () => missionApi.list().then(setMissions).catch(() => setError('Failed to load missions.'));
 
@@ -44,10 +44,10 @@ export default function MissionPage() {
   const handleAssign = async (id?: number) => {
     if (!id) return;
     setError(null);
-    setInfo(null);
+    setResult(null);
     try {
-      const result = await missionApi.assign(id);
-      setInfo(`Assigned UAV "${result.uavName}" (score=${result.assignmentScore.toFixed(1)}, distance=${result.estimatedDistanceKm.toFixed(1)}km, battery use=${result.estimatedBatteryUsage.toFixed(1)}%)`);
+      const assigned = await missionApi.assign(id);
+      setResult(assigned);
       load();
     } catch (err: any) {
       setError(err?.response?.data?.message ?? 'No eligible UAV could be assigned to this mission.');
@@ -58,7 +58,25 @@ export default function MissionPage() {
     <div>
       <h2>Missions</h2>
       {error && <div className="error-banner">{error}</div>}
-      {info && <div className="stat-card" style={{ marginBottom: 16 }}>{info}</div>}
+
+      {result && (
+        <div className="assignment-card">
+          <div className="assignment-card-header">
+            <span className="assignment-card-icon">🛰️</span>
+            <div>
+              <div className="assignment-card-title">Assigned to {result.uavName}</div>
+              <div className="muted small">for mission "{result.missionTitle}"</div>
+            </div>
+            <button className="secondary assignment-card-close" onClick={() => setResult(null)}>✕</button>
+          </div>
+          <div className="assignment-card-reason-label">Why this UAV?</div>
+          <ul className="assignment-card-reasons">
+            {result.reasons.map((reason, i) => (
+              <li key={i}>{reason}</li>
+            ))}
+          </ul>
+        </div>
+      )}
 
       <form className="form-grid" onSubmit={handleSubmit}>
         <label>

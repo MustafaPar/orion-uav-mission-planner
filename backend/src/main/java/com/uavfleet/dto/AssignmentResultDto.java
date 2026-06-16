@@ -3,6 +3,7 @@ package com.uavfleet.dto;
 import com.uavfleet.entity.AssignmentStatus;
 
 import java.time.Instant;
+import java.util.List;
 
 /**
  * Response DTO returned after the auto-assignment algorithm picks
@@ -20,6 +21,13 @@ public class AssignmentResultDto {
     private Double assignmentScore;
     private AssignmentStatus status;
     private Instant assignedAt;
+
+    /** UAV's battery level at the moment of assignment (for the explanation card). */
+    private Double uavBatteryLevel;
+    /** UAV's max range (km) at the moment of assignment. */
+    private Double uavMaxRangeKm;
+    /** Human-readable bullet points explaining why this UAV won the assignment. */
+    private List<String> reasons;
 
     public Long getAssignmentId() {
         return assignmentId;
@@ -99,5 +107,29 @@ public class AssignmentResultDto {
 
     public void setAssignedAt(Instant assignedAt) {
         this.assignedAt = assignedAt;
+    }
+
+    public Double getUavBatteryLevel() {
+        return uavBatteryLevel;
+    }
+
+    public void setUavBatteryLevel(Double uavBatteryLevel) {
+        this.uavBatteryLevel = uavBatteryLevel;
+    }
+
+    public Double getUavMaxRangeKm() {
+        return uavMaxRangeKm;
+    }
+
+    public void setUavMaxRangeKm(Double uavMaxRangeKm) {
+        this.uavMaxRangeKm = uavMaxRangeKm;
+    }
+
+    public List<String> getReasons() {
+        return reasons;
+    }
+
+    public void setReasons(List<String> reasons) {
+        this.reasons = reasons;
     }
 }

@@ -1,32 +1,34 @@
 import { useEffect, useState } from 'react';
-import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
+import { MapContainer, TileLayer, Marker, Popup, Polyline } from 'react-leaflet';
 import L from 'leaflet';
 import { uavApi } from '../api/uavApi';
 import { missionApi } from '../api/missionApi';
-import type { Mission, Uav } from '../types';
+import { assignmentApi } from '../api/assignmentApi';
+import type { AssignmentMapEntry, Mission, Uav } from '../types';
 
-const uavIcon = new L.Icon({
-  iconUrl: 'https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon.png',
-  shadowUrl: 'https://unpkg.com/leaflet@1.9.4/dist/images/marker-shadow.png',
-  iconSize: [25, 41],
-  iconAnchor: [12, 41],
-});
+// Emoji-based divIcons read more like a live ops board than the default
+// Leaflet pin — a drone for UAVs, a target for mission sites.
+function emojiIcon(emoji: string, size: number) {
+  return new L.DivIcon({
+    html: `<div style="font-size:${size}px; line-height:1; filter: drop-shadow(0 2px 3px rgba(0,0,0,.5));">${emoji}</div>`,
+    className: 'emoji-marker',
+    iconSize: [size, size],
+    iconAnchor: [size / 2, size / 2],
+  });
+}
 
-const missionIcon = new L.Icon({
-  iconUrl: 'https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon-2x.png',
-  shadowUrl: 'https://unpkg.com/leaflet@1.9.4/dist/images/marker-shadow.png',
-  iconSize: [25, 41],
-  iconAnchor: [12, 41],
-  className: 'mission-marker',
-});
+const uavIcon = emojiIcon('✈️', 28);
+const missionIcon = emojiIcon('🎯', 26);
 
 export default function MapPage() {
   const [uavs, setUavs] = useState<Uav[]>([]);
   const [missions, setMissions] = useState<Mission[]>([]);
+  const [assignments, setAssignments] = useState<AssignmentMapEntry[]>([]);
 
   useEffect(() => {
     uavApi.list().then(setUavs).catch(() => {});
     missionApi.list().then(setMissions).catch(() => {});
+    assignmentApi.listActive().then(setAssignments).catch(() => {});
   }, []);
 
   return (
@@ -38,6 +40,14 @@ export default function MapPage() {
             attribution='&copy; OpenStreetMap contributors'
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
           />
+          {/* UAV -> Mission route lines for active assignments */}
+          {assignments.map((a) => (
+            <Polyline
+              key={`route-${a.assignmentId}`}
+              positions={[[a.uavLatitude, a.uavLongitude], [a.missionLatitude, a.missionLongitude]]}
+              pathOptions={{ color: '#4dd0e1', weight: 2, dashArray: '6 6', opacity: 0.85 }}
+            />
+          ))}
           {uavs.map((u) => (
             <Marker key={`uav-${u.id}`} position={[u.latitude, u.longitude]} icon={uavIcon}>
               <Popup>

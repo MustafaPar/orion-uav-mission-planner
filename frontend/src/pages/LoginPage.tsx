@@ -6,8 +6,8 @@ interface Props {
 }
 
 export default function LoginPage({ onLogin }: Props) {
-  const [username, setUsername] = useState('admin');
-  const [password, setPassword] = useState('admin123');
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
   const [mode, setMode] = useState<'login' | 'register'>('login');
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
@@ -57,8 +57,6 @@ export default function LoginPage({ onLogin }: Props) {
         >
           {mode === 'login' ? 'Need an account? Register' : 'Already have an account? Sign in'}
         </button>
-
-        <p className="muted small">Demo credentials: admin / admin123</p>
       </form>
     </div>
   );

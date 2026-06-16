@@ -11,6 +11,7 @@ import com.uavfleet.repository.UavRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
@@ -155,18 +156,41 @@ public class AssignmentService {
     }
 
     private AssignmentResultDto toDto(Assignment assignment) {
+        Uav uav = assignment.getUav();
+        Mission mission = assignment.getMission();
+
         AssignmentResultDto dto = new AssignmentResultDto();
         dto.setAssignmentId(assignment.getId());
-        dto.setUavId(assignment.getUav().getId());
-        dto.setUavName(assignment.getUav().getName());
-        dto.setMissionId(assignment.getMission().getId());
-        dto.setMissionTitle(assignment.getMission().getTitle());
+        dto.setUavId(uav.getId());
+        dto.setUavName(uav.getName());
+        dto.setMissionId(mission.getId());
+        dto.setMissionTitle(mission.getTitle());
         dto.setEstimatedDistanceKm(assignment.getEstimatedDistanceKm());
         dto.setEstimatedBatteryUsage(assignment.getEstimatedBatteryUsage());
         dto.setAssignmentScore(assignment.getAssignmentScore());
         dto.setStatus(assignment.getStatus());
         dto.setAssignedAt(assignment.getAssignedAt());
+        dto.setUavBatteryLevel(uav.getBatteryLevel());
+        dto.setUavMaxRangeKm(uav.getMaxRangeKm());
+        dto.setReasons(buildReasons(uav, mission, assignment));
         return dto;
+    }
+
+    /**
+     * Builds the human-readable explanation shown in the UI after an auto-assignment
+     * ("Why was this UAV chosen?"), mirroring the same factors used in scoreUav().
+     */
+    private List<String> buildReasons(Uav uav, Mission mission, Assignment assignment) {
+        List<String> reasons = new ArrayList<>();
+        reasons.add(String.format("Battery: %.0f%% remaining (round trip uses ~%.1f%%)",
+                uav.getBatteryLevel(), assignment.getEstimatedBatteryUsage()));
+        reasons.add(String.format("Range: %.0fkm max, mission requires %.0fkm",
+                uav.getMaxRangeKm(), mission.getRequiredRangeKm()));
+        reasons.add(String.format("Distance to target: %.1fkm", assignment.getEstimatedDistanceKm()));
+        reasons.add(String.format("Mission priority: %s (priority weight applied to score)", mission.getPriority()));
+        reasons.add(String.format("Composite score: %.1f (lowest among eligible UAVs wins)",
+                assignment.getAssignmentScore()));
+        return reasons;
     }
 
     private static class ScoredUav {
