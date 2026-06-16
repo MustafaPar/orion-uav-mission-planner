@@ -26,15 +26,15 @@ Orion provides an interactive operational view where UAV assets, mission targets
 
 ## Demo
 
-> Demo GIF coming soon
+![Orion Demo](docs/demo/orion-demo.gif)
 
-The planned demonstration showcases:
+The demo showcases:
 
-* Creating a mission
-* Automatic UAV assignment
-* Route visualization
-* Mission status updates
-* Dashboard analytics
+- User authentication
+- Fleet management
+- Mission planning
+- Automatic UAV assignment
+- Interactive route visualization
 
 ---
 
