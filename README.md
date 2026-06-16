@@ -10,11 +10,16 @@ A full-stack UAV fleet management and mission planning simulation platform built
 
 ## Screenshots
 
-### Authentication
+### Interactive Mission Map
 
-![Login](docs/screenshots/01-login.png)
+![Mission Map](docs/screenshots/03-map.png)
 
-Secure authentication system with protected application routes.
+Leaflet-powered mission visualization featuring:
+
+* UAV positioning
+* Mission target locations
+* Route visualization
+* Geographic mission overview
 
 ### Operations Dashboard
 
@@ -22,46 +27,41 @@ Secure authentication system with protected application routes.
 
 Real-time fleet overview including:
 
-- UAV availability tracking
-- Active mission monitoring
-- Battery health statistics
-- Mission completion metrics
-- Fleet status summaries
+* UAV availability tracking
+* Active mission monitoring
+* Battery health statistics
+* Mission completion metrics
+* Fleet status summaries
 
 ### UAV Fleet Management
 
-![UAV Fleet](docs/screenshots/03-uavs.png)
+![UAV Fleet](docs/screenshots/05-uavs.png)
 
 Manage UAV assets with:
 
-- Fleet registration
-- Status management
-- Battery monitoring
-- Range tracking
-- Location management
+* Fleet registration
+* Status management
+* Battery monitoring
+* Range tracking
+* Location management
 
 ### Mission Planning & Assignment
 
-![Mission Management](docs/screenshots/04-missions.png)
+![Mission Management](docs/screenshots/04-missions-assign.png)
 
 Mission lifecycle management including:
 
-- Mission creation
-- Priority classification
-- Mission categorization
-- Automatic UAV assignment
-- Assignment status tracking
+* Mission creation
+* Priority classification
+* Mission categorization
+* Automatic UAV assignment
+* Assignment status tracking
 
-### Interactive Mission Map
+### Authentication
 
-![Mission Map](docs/screenshots/05-map.png)
+![Login](docs/screenshots/01-login.png)
 
-Leaflet-powered mission visualization featuring:
-
-- UAV positioning
-- Mission target locations
-- Route visualization
-- Geographic mission overview
+Secure authentication system with protected application routes.
 
 ---
 
@@ -69,17 +69,17 @@ Leaflet-powered mission visualization featuring:
 
 ### Fleet Management
 
-- Create, update, and remove UAV assets
-- Track UAV status and availability
-- Monitor battery levels and operational range
-- Manage geographic positioning
+* Create, update, and remove UAV assets
+* Track UAV status and availability
+* Monitor battery levels and operational range
+* Manage geographic positioning
 
 ### Mission Management
 
-- Create surveillance, patrol, and mapping missions
-- Define mission priorities
-- Track mission status
-- Assign UAVs manually or automatically
+* Create surveillance, patrol, and mapping missions
+* Define mission priorities
+* Track mission status
+* Assign UAVs manually or automatically
 
 ### Smart Auto Assignment
 
@@ -87,25 +87,25 @@ Orion includes a mission assignment algorithm that evaluates available UAVs and 
 
 Assignment scoring considers:
 
-- UAV availability
-- Battery level
-- Operational range
-- Mission requirements
-- Current assignment status
+* UAV availability
+* Battery level
+* Operational range
+* Mission requirements
+* Current assignment status
 
 ### Dashboard Analytics
 
-- Fleet utilization overview
-- Battery distribution monitoring
-- Mission completion tracking
-- Active asset visualization
+* Fleet utilization overview
+* Battery distribution monitoring
+* Mission completion tracking
+* Active asset visualization
 
 ### Interactive Mapping
 
-- Leaflet-based visualization
-- Live-style UAV positioning
-- Mission target display
-- Assignment route rendering
+* Leaflet-based visualization
+* Live-style UAV positioning
+* Mission target display
+* Assignment route rendering
 
 ---
 
@@ -113,32 +113,32 @@ Assignment scoring considers:
 
 ### Backend
 
-- Java 17
-- Spring Boot
-- Spring Security
-- Spring Data JPA
-- Hibernate
-- REST API
+* Java 17
+* Spring Boot
+* Spring Security
+* Spring Data JPA
+* Hibernate
+* REST API
 
 ### Frontend
 
-- React
-- JavaScript
-- Axios
-- Leaflet
-- CSS
+* React
+* TypeScript
+* Axios
+* Leaflet
+* CSS
 
 ### Database
 
-- PostgreSQL
+* PostgreSQL
 
 ### DevOps & Tools
 
-- Docker
-- Docker Compose
-- Git
-- GitHub
-- Postman
+* Docker
+* Docker Compose
+* Git
+* GitHub
+* Postman
 
 ---
 
@@ -184,10 +184,10 @@ orion-uav-mission-planner/
 
 ### Prerequisites
 
-- Java 17+
-- Node.js 20+
-- PostgreSQL
-- Docker
+* Java 17+
+* Node.js 20+
+* PostgreSQL
+* Docker
 
 ### Backend
 
@@ -216,13 +216,13 @@ docker compose up --build
 
 This project was developed to demonstrate:
 
-- Full-stack application development
-- REST API architecture
-- Spring Security integration
-- Database design with PostgreSQL
-- Interactive geospatial interfaces
-- Mission assignment algorithms
-- Modern React frontend development
+* Full-stack application development
+* REST API architecture
+* Spring Security integration
+* Database design with PostgreSQL
+* Interactive geospatial interfaces
+* Mission assignment algorithms
+* Modern React frontend development
 
 ---
 
@@ -241,3 +241,4 @@ It does not control real UAVs and contains no weapons, targeting, surveillance, 
 Computer Engineering Student
 
 GitHub: https://github.com/MustafaPar
+
