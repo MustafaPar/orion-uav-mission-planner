@@ -3,7 +3,9 @@ package com.uavfleet.service;
 import com.uavfleet.dto.UavDto;
 import com.uavfleet.entity.Uav;
 import com.uavfleet.entity.UavStatus;
+import com.uavfleet.exception.EntityInUseException;
 import com.uavfleet.exception.ResourceNotFoundException;
+import com.uavfleet.repository.AssignmentRepository;
 import com.uavfleet.repository.UavRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -15,9 +17,11 @@ import java.util.stream.Collectors;
 public class UavService {
 
     private final UavRepository uavRepository;
+    private final AssignmentRepository assignmentRepository;
 
-    public UavService(UavRepository uavRepository) {
+    public UavService(UavRepository uavRepository, AssignmentRepository assignmentRepository) {
         this.uavRepository = uavRepository;
+        this.assignmentRepository = assignmentRepository;
     }
 
     public List<UavDto> findAll() {
@@ -45,6 +49,13 @@ public class UavService {
     @Transactional
     public void delete(Long id) {
         Uav uav = getEntity(id);
+
+        if (!assignmentRepository.findByUavId(id).isEmpty()) {
+            throw new EntityInUseException(
+                    "UAV '" + uav.getName() + "' has mission assignment history and cannot be deleted. " +
+                            "Set it to MAINTENANCE instead, or reassign/delete its missions first.");
+        }
+
         uavRepository.delete(uav);
     }
 

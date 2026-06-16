@@ -4,14 +4,27 @@ A defense-inspired mission planning and UAV fleet management simulation system b
 
 > This project is a pure planning / simulation / route-optimization system. There is **no** weapons, targeting, or attack functionality of any kind — it focuses on fleet management, mission scheduling, and battery/range-aware route assignment.
 
+![Mission Map](docs/screenshots/03-map.png)
+*Live fleet view: drone and target markers with dashed UAV → Mission route lines for active assignments.*
+
+## Screenshots
+
+| Dashboard | Mission Auto-Assignment |
+|---|---|
+| ![Dashboard](docs/screenshots/02-dashboard.png) | ![Auto-Assign](docs/screenshots/04-missions-assign.png) |
+
+| UAV Fleet | Login |
+|---|---|
+| ![UAV Fleet](docs/screenshots/05-uavs.png) | ![Login](docs/screenshots/01-login.png) |
+
 ## Features
 
 - UAV fleet management (CRUD)
 - Mission creation and lifecycle tracking
-- **Auto mission assignment** — a scoring algorithm picks the best available UAV for a mission
+- **Auto mission assignment** — a scoring algorithm picks the best available UAV for a mission, with a plain-English explanation of *why* it won
 - Battery-aware, range-aware route planning
-- Real-time fleet dashboard (totals, availability, battery health, completed missions)
-- Map-based visualization of UAVs and missions (Leaflet / OpenStreetMap)
+- Real-time fleet dashboard: completion rate, battery distribution, active fleet, recent missions
+- Map-based visualization with drone/target markers and live UAV → Mission route lines (Leaflet / OpenStreetMap)
 - JWT authentication
 - REST API documentation with Swagger / OpenAPI
 - Unit tests for the assignment algorithm
@@ -57,6 +70,12 @@ Hard eligibility filters (applied before scoring — a UAV failing any of these 
 - UAV's max range must cover the mission's required range **and** the round trip distance.
 - Remaining battery after the round trip must keep at least a 15% safety reserve.
 
+**Explainability**: every `POST /api/missions/{id}/assign` call returns a `reasons[]`
+array spelling out *why* the winning UAV was chosen — battery margin, range vs.
+requirement, distance to target, mission priority, and the final composite score
+(see the Mission Auto-Assignment screenshot above). This is surfaced directly in
+the UI as an "Assignment Explanation" card, not just logged server-side.
+
 This is intentionally a simple, explainable greedy scorer for v1. Planned extensions:
 - Dijkstra / A* route planning around no-fly zones
 - Multi-UAV mission optimization (assigning several missions at once)
@@ -89,6 +108,7 @@ mission_logs   (id, missionId, message, loggedAt)
 | PUT    | `/api/missions/{id}`       | Update a mission                      |
 | DELETE | `/api/missions/{id}`       | Remove a mission                      |
 | POST   | `/api/missions/{id}/assign`| Run auto-assignment for this mission  |
+| GET    | `/api/assignments`         | Active UAV↔Mission assignments (map route lines) |
 | GET    | `/api/dashboard/stats`     | Aggregated fleet statistics           |
 
 Full interactive docs: `http://localhost:8080/swagger-ui.html`
@@ -103,8 +123,9 @@ Docker Desktop (WSL2 backend), Docker 29.5.3 / Compose v5.1.4:
   (compose `depends_on.condition: service_healthy`).
 - `uav-backend` builds via the multi-stage `Dockerfile` (Maven build stage +
   JRE runtime stage) and boots successfully on port `8080`.
-- `DataSeeder` populates the demo admin user and sample UAVs/missions on first boot.
-- `POST /api/auth/login` issues a working JWT for the seeded `admin` / `admin123` user.
+- `DataSeeder` populates a demo admin account and sample UAVs/missions on first boot
+  (see `DataSeeder.java` for the seeded credentials — intentionally not printed here).
+- `POST /api/auth/login` issues a working JWT for the seeded account.
 - `POST /api/missions/{id}/assign` was exercised against the live database:
   - Two pending missions were each assigned to the closest eligible `AVAILABLE` UAV
     (UAV status flipped to `ASSIGNED`, mission status flipped to `ASSIGNED`).
@@ -118,9 +139,8 @@ Docker Desktop (WSL2 backend), Docker 29.5.3 / Compose v5.1.4:
 To reproduce:
 ```bash
 docker compose up --build
-curl -X POST http://localhost:8080/api/auth/login \
-  -H "Content-Type: application/json" \
-  -d '{"username":"admin","password":"admin123"}'
+# Log in with the seeded admin account (see DataSeeder.java), then call
+# /api/missions/{id}/assign with the returned JWT to see the algorithm in action.
 ```
 
 ## Getting Started
@@ -139,8 +159,9 @@ npm install
 npm run dev
 ```
 
-Open `http://localhost:5173`. A demo admin user (`admin` / `admin123`) and a few
-sample UAVs/missions are seeded automatically on first boot.
+Open `http://localhost:5173`. A demo admin account and a few sample UAVs/missions
+are seeded automatically on first boot — see `DataSeeder.java` for the credentials,
+or just click "Register" on the login screen to create your own account.
 
 ### Option B — Run locally
 

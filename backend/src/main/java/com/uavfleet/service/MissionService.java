@@ -3,8 +3,13 @@ package com.uavfleet.service;
 import com.uavfleet.dto.MissionDto;
 import com.uavfleet.entity.Mission;
 import com.uavfleet.entity.MissionStatus;
+import com.uavfleet.entity.Uav;
+import com.uavfleet.entity.UavStatus;
 import com.uavfleet.exception.ResourceNotFoundException;
+import com.uavfleet.repository.AssignmentRepository;
+import com.uavfleet.repository.MissionLogRepository;
 import com.uavfleet.repository.MissionRepository;
+import com.uavfleet.repository.UavRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -15,9 +20,18 @@ import java.util.stream.Collectors;
 public class MissionService {
 
     private final MissionRepository missionRepository;
+    private final AssignmentRepository assignmentRepository;
+    private final UavRepository uavRepository;
+    private final MissionLogRepository missionLogRepository;
 
-    public MissionService(MissionRepository missionRepository) {
+    public MissionService(MissionRepository missionRepository,
+                           AssignmentRepository assignmentRepository,
+                           UavRepository uavRepository,
+                           MissionLogRepository missionLogRepository) {
         this.missionRepository = missionRepository;
+        this.assignmentRepository = assignmentRepository;
+        this.uavRepository = uavRepository;
+        this.missionLogRepository = missionLogRepository;
     }
 
     public List<MissionDto> findAll() {
@@ -42,9 +56,27 @@ public class MissionService {
         return toDto(missionRepository.save(mission));
     }
 
+    /**
+     * Deleting a mission also removes its assignment and mission logs (if any)
+     * and frees the UAV back to AVAILABLE, instead of failing with a raw
+     * foreign-key constraint error from the database.
+     */
     @Transactional
     public void delete(Long id) {
-        missionRepository.delete(getEntity(id));
+        Mission mission = getEntity(id);
+
+        assignmentRepository.findByMissionId(id).ifPresent(assignment -> {
+            Uav uav = assignment.getUav();
+            if (uav.getStatus() == UavStatus.ASSIGNED) {
+                uav.setStatus(UavStatus.AVAILABLE);
+                uavRepository.save(uav);
+            }
+            assignmentRepository.delete(assignment);
+        });
+
+        missionLogRepository.deleteAll(missionLogRepository.findByMissionIdOrderByLoggedAtDesc(id));
+
+        missionRepository.delete(mission);
     }
 
     private Mission getEntity(Long id) {
