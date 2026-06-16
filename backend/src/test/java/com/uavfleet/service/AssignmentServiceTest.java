@@ -59,7 +59,7 @@ class AssignmentServiceTest {
         farFullBattery = new Uav("Far-Full", "ModelB", 42.5, 30.5, 100.0, 500.0, UavStatus.AVAILABLE);
         farFullBattery.setId(2L);
 
-        closeLowBattery = new Uav("Close-Low", "ModelC", 41.041, 29.001, 16.0, 50.0, UavStatus.AVAILABLE);
+        closeLowBattery = new Uav("Close-Low", "ModelC", 41.041, 29.001, 10.0, 50.0, UavStatus.AVAILABLE);
         closeLowBattery.setId(3L);
 
         outOfRange = new Uav("OutOfRange", "ModelD", 41.041, 29.001, 100.0, 1.0, UavStatus.AVAILABLE);
