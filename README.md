@@ -16,25 +16,33 @@ A full-stack UAV fleet management and mission planning simulation platform built
 
 ---
 
-## Mission Operations Overview
-
-![Mission Map](docs/screenshots/03-map.png)
-
-Orion provides an interactive operational view where UAV assets, mission targets, and assignment routes can be visualized on a geographic map.
-
----
-
 ## Demo
 
 ![Orion Demo](docs/demo/orion-demo.gif)
 
 The demo showcases:
 
-- User authentication
-- Fleet management
-- Mission planning
-- Automatic UAV assignment
-- Interactive route visualization
+* User authentication
+* Fleet management
+* Mission planning
+* Automatic UAV assignment
+* Interactive route visualization
+
+---
+
+## Why Orion?
+
+Modern UAV operations require more than simple drone tracking. Operators must coordinate multiple assets, monitor resource constraints, assign missions efficiently, and maintain situational awareness.
+
+Orion was built to simulate these real-world operational challenges through an interactive mission planning and fleet management platform.
+
+---
+
+## Mission Operations Overview
+
+![Mission Map](docs/screenshots/03-map.png)
+
+Orion provides an interactive operational view where UAV assets, mission targets, and assignment routes can be visualized on a geographic map.
 
 ---
 
@@ -76,7 +84,9 @@ The demo showcases:
 
 ### Smart Auto Assignment
 
-Orion includes a mission assignment algorithm that evaluates available UAVs and selects the most suitable UAV based on operational constraints.
+Orion includes a mission assignment engine that evaluates available UAVs and selects the most suitable asset based on operational constraints.
+
+### Auto Assignment Logic
 
 Assignment scoring considers:
 
@@ -85,6 +95,8 @@ Assignment scoring considers:
 * Operational range
 * Distance to mission
 * Current assignment status
+
+The UAV with the highest overall suitability score is automatically assigned to the mission.
 
 ### Dashboard Analytics
 
@@ -99,6 +111,7 @@ Assignment scoring considers:
 * UAV positioning
 * Mission target display
 * Route rendering
+* Assignment route visualization
 
 ---
 
@@ -178,6 +191,7 @@ orion-uav-mission-planner/
 │   └── assets/
 │
 └── docs/
+    ├── demo/
     └── screenshots/
 ```
 
@@ -197,6 +211,17 @@ This project was developed to demonstrate:
 
 ---
 
+## Future Improvements
+
+* Role-based access control
+* Fleet performance analytics
+* Historical mission reporting
+* Advanced route optimization
+* Real-time event notifications
+* Mission performance metrics
+
+---
+
 ## Disclaimer
 
 Orion is a software simulation and mission planning project created for educational and portfolio purposes.
@@ -212,5 +237,6 @@ It does not control real UAVs and contains no weapons, targeting, surveillance, 
 Computer Engineering Student
 
 GitHub: https://github.com/MustafaPar
+
 
 
