@@ -1,5 +1,13 @@
 # Orion UAV Mission Planner
 
+![Java](https://img.shields.io/badge/Java-17-orange)
+![Spring Boot](https://img.shields.io/badge/Spring_Boot-3.x-6DB33F)
+![React](https://img.shields.io/badge/React-19-61DAFB)
+![PostgreSQL](https://img.shields.io/badge/PostgreSQL-4169E1)
+![Docker](https://img.shields.io/badge/Docker-2496ED)
+![Leaflet](https://img.shields.io/badge/Leaflet-199900)
+![License](https://img.shields.io/badge/Portfolio_Project-blue)
+
 A full-stack UAV fleet management and mission planning simulation platform built with **Spring Boot**, **React**, **PostgreSQL**, and **Leaflet**.
 
 > Orion is a defense-inspired mission planning system designed to simulate UAV fleet operations, mission assignment workflows, route visualization, and operational monitoring.
@@ -8,60 +16,45 @@ A full-stack UAV fleet management and mission planning simulation platform built
 
 ---
 
-## Screenshots
-
-### Interactive Mission Map
+## Mission Operations Overview
 
 ![Mission Map](docs/screenshots/03-map.png)
 
-Leaflet-powered mission visualization featuring:
+Orion provides an interactive operational view where UAV assets, mission targets, and assignment routes can be visualized on a geographic map.
 
-* UAV positioning
-* Mission target locations
+---
+
+## Demo
+
+> Demo GIF coming soon
+
+The planned demonstration showcases:
+
+* Creating a mission
+* Automatic UAV assignment
 * Route visualization
-* Geographic mission overview
+* Mission status updates
+* Dashboard analytics
+
+---
+
+## Screenshots
 
 ### Operations Dashboard
 
 ![Dashboard](docs/screenshots/02-dashboard.png)
 
-Real-time fleet overview including:
-
-* UAV availability tracking
-* Active mission monitoring
-* Battery health statistics
-* Mission completion metrics
-* Fleet status summaries
-
 ### UAV Fleet Management
 
 ![UAV Fleet](docs/screenshots/05-uavs.png)
-
-Manage UAV assets with:
-
-* Fleet registration
-* Status management
-* Battery monitoring
-* Range tracking
-* Location management
 
 ### Mission Planning & Assignment
 
 ![Mission Management](docs/screenshots/04-missions-assign.png)
 
-Mission lifecycle management including:
-
-* Mission creation
-* Priority classification
-* Mission categorization
-* Automatic UAV assignment
-* Assignment status tracking
-
 ### Authentication
 
 ![Login](docs/screenshots/01-login.png)
-
-Secure authentication system with protected application routes.
 
 ---
 
@@ -83,29 +76,29 @@ Secure authentication system with protected application routes.
 
 ### Smart Auto Assignment
 
-Orion includes a mission assignment algorithm that evaluates available UAVs and selects the most suitable asset based on operational constraints.
+Orion includes a mission assignment algorithm that evaluates available UAVs and selects the most suitable UAV based on operational constraints.
 
 Assignment scoring considers:
 
 * UAV availability
 * Battery level
 * Operational range
-* Mission requirements
+* Distance to mission
 * Current assignment status
 
 ### Dashboard Analytics
 
 * Fleet utilization overview
-* Battery distribution monitoring
+* Battery monitoring
 * Mission completion tracking
-* Active asset visualization
+* Operational status summaries
 
 ### Interactive Mapping
 
-* Leaflet-based visualization
-* Live-style UAV positioning
+* Leaflet-powered map visualization
+* UAV positioning
 * Mission target display
-* Assignment route rendering
+* Route rendering
 
 ---
 
@@ -142,16 +135,26 @@ Assignment scoring considers:
 
 ---
 
-## System Architecture
+## Architecture
 
 ```text
-React Frontend
-        │
-        ▼
- Spring Boot REST API
-        │
-        ▼
- PostgreSQL Database
+┌──────────────────────────────┐
+│       React Frontend         │
+│  Dashboard • Map • Missions  │
+└──────────────┬───────────────┘
+               │ REST API
+               ▼
+┌──────────────────────────────┐
+│     Spring Boot Backend      │
+│ Business Logic • Security    │
+│ Assignment Engine • JPA      │
+└──────────────┬───────────────┘
+               │
+               ▼
+┌──────────────────────────────┐
+│      PostgreSQL Database     │
+│ UAVs • Missions • Users      │
+└──────────────────────────────┘
 ```
 
 ---
@@ -169,45 +172,13 @@ orion-uav-mission-planner/
 │   └── security/
 │
 ├── frontend/
-│   ├── components/
 │   ├── pages/
+│   ├── components/
 │   ├── services/
 │   └── assets/
 │
 └── docs/
     └── screenshots/
-```
-
----
-
-## Getting Started
-
-### Prerequisites
-
-* Java 17+
-* Node.js 20+
-* PostgreSQL
-* Docker
-
-### Backend
-
-```bash
-cd backend
-./mvnw spring-boot:run
-```
-
-### Frontend
-
-```bash
-cd frontend
-npm install
-npm run dev
-```
-
-### Docker
-
-```bash
-docker compose up --build
 ```
 
 ---
@@ -241,4 +212,5 @@ It does not control real UAVs and contains no weapons, targeting, surveillance, 
 Computer Engineering Student
 
 GitHub: https://github.com/MustafaPar
+
 
