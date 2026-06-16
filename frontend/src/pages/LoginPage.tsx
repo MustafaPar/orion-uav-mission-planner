@@ -32,7 +32,7 @@ export default function LoginPage({ onLogin }: Props) {
   return (
     <div className="login-shell">
       <form className="login-card" onSubmit={handleSubmit}>
-        <h1>🛰️ Orion UAV Mission Planner</h1>
+        <img src="/brand/logo.svg" alt="Orion UAV Mission Planner" className="login-logo" />
         <p className="muted">{mode === 'login' ? 'Sign in to continue' : 'Create an operator account'}</p>
 
         {error && <div className="error-banner">{error}</div>}

@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none">
+  <defs>
+    <linearGradient id="fArc" x1="8" y1="50" x2="56" y2="12" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#3BA7FF"/>
+      <stop offset="1" stop-color="#00D4FF"/>
+    </linearGradient>
+    <radialGradient id="fStar" cx="54" cy="14" r="15" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#FFFFFF"/>
+      <stop offset="0.55" stop-color="#CFF1FF"/>
+      <stop offset="1" stop-color="#00D4FF"/>
+    </radialGradient>
+  </defs>
+
+  <path d="M8,50 Q30,10 54,14" stroke="url(#fArc)" stroke-width="8" stroke-linecap="round" fill="none"/>
+  <path d="M54,0 L57,11 L61,14 L57,17 L54,28 L51,17 L47,14 L51,11 Z" fill="url(#fStar)"/>
+</svg>

@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 320" fill="none">
+  <defs>
+    <linearGradient id="orionArcD" x1="80" y1="198" x2="588" y2="76" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#3BA7FF"/>
+      <stop offset="1" stop-color="#00D4FF"/>
+    </linearGradient>
+    <linearGradient id="orionHighlightD" x1="90" y1="190" x2="580" y2="70" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#FFFFFF" stop-opacity="0"/>
+      <stop offset="0.5" stop-color="#FFFFFF" stop-opacity="0.9"/>
+      <stop offset="1" stop-color="#FFFFFF" stop-opacity="0"/>
+    </linearGradient>
+    <radialGradient id="orionStarD" cx="592" cy="72" r="34" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#FFFFFF"/>
+      <stop offset="0.55" stop-color="#CFF1FF"/>
+      <stop offset="1" stop-color="#00D4FF"/>
+    </radialGradient>
+    <linearGradient id="orionWordmarkD" x1="80" y1="200" x2="80" y2="265" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#FFFFFF"/>
+      <stop offset="1" stop-color="#AFD7F5"/>
+    </linearGradient>
+  </defs>
+
+  <!-- dark navy backing plate -->
+  <rect x="0" y="0" width="720" height="320" rx="28" fill="#08111F"/>
+
+  <!-- orbital arc / comet sweep -->
+  <path d="M80,198 C210,35 440,20 588,76 C520,45 260,140 80,198 Z" fill="url(#orionArcD)"/>
+
+  <!-- bright leading-edge streak -->
+  <path d="M90,190 C215,28 445,14 580,70" stroke="url(#orionHighlightD)" stroke-width="3" stroke-linecap="round" fill="none"/>
+
+  <!-- sparkle / star -->
+  <path d="M592,42 L598,66 L606,72 L598,78 L592,102 L586,78 L578,72 L586,66 Z" fill="url(#orionStarD)"/>
+  <circle cx="626" cy="54" r="2.4" fill="#CFF1FF" opacity="0.7"/>
+  <circle cx="552" cy="104" r="1.6" fill="#CFF1FF" opacity="0.5"/>
+
+  <!-- wordmark -->
+  <text x="80" y="255" font-family="'Segoe UI', Arial, sans-serif" font-weight="700" font-size="68" letter-spacing="8" fill="url(#orionWordmarkD)" stroke="#3BA7FF" stroke-width="1" stroke-opacity="0.35" paint-order="stroke fill">ORION</text>
+
+  <!-- tagline -->
+  <text x="84" y="286" font-family="'Segoe UI', Arial, sans-serif" font-weight="600" font-size="17" letter-spacing="5" fill="#8FB4D9">UAV MISSION PLANNER</text>
+</svg>

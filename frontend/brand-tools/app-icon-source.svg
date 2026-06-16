@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" fill="none">
+  <defs>
+    <linearGradient id="aArc" x1="160" y1="660" x2="800" y2="280" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#3BA7FF"/>
+      <stop offset="1" stop-color="#00D4FF"/>
+    </linearGradient>
+    <linearGradient id="aHighlight" x1="180" y1="640" x2="790" y2="270" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#FFFFFF" stop-opacity="0"/>
+      <stop offset="0.5" stop-color="#FFFFFF" stop-opacity="0.9"/>
+      <stop offset="1" stop-color="#FFFFFF" stop-opacity="0"/>
+    </linearGradient>
+    <radialGradient id="aStar" cx="812" cy="300" r="90" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#FFFFFF"/>
+      <stop offset="0.55" stop-color="#CFF1FF"/>
+      <stop offset="1" stop-color="#00D4FF"/>
+    </radialGradient>
+    <linearGradient id="aWordmark" x1="180" y1="700" x2="180" y2="820" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#FFFFFF"/>
+      <stop offset="1" stop-color="#AFD7F5"/>
+    </linearGradient>
+  </defs>
+
+  <!-- dark navy rounded-square plate -->
+  <rect x="0" y="0" width="1024" height="1024" rx="180" fill="#08111F"/>
+
+  <!-- orbital arc / comet sweep -->
+  <path d="M170,650 C400,220 720,160 800,300 C660,210 360,460 170,650 Z" fill="url(#aArc)"/>
+
+  <!-- bright leading-edge streak -->
+  <path d="M190,630 C405,205 715,150 790,290" stroke="url(#aHighlight)" stroke-width="11" stroke-linecap="round" fill="none"/>
+
+  <!-- sparkle / star -->
+  <path d="M812,210 L834,278 L868,300 L834,322 L812,390 L790,322 L756,300 L790,278 Z" fill="url(#aStar)"/>
+  <circle cx="900" cy="230" r="9" fill="#CFF1FF" opacity="0.7"/>
+  <circle cx="700" cy="400" r="6" fill="#CFF1FF" opacity="0.5"/>
+
+  <!-- wordmark -->
+  <text x="178" y="790" font-family="'Segoe UI', Arial, sans-serif" font-weight="700" font-size="148" letter-spacing="14" fill="url(#aWordmark)" stroke="#3BA7FF" stroke-width="2" stroke-opacity="0.35" paint-order="stroke fill">ORION</text>
+</svg>

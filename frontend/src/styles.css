@@ -1,10 +1,11 @@
 :root {
-  --bg: #0b1320;
-  --panel: #131d2f;
-  --border: #233048;
-  --text: #e6edf7;
+  --bg: #08111F;
+  --panel: #0f1c30;
+  --border: #20324a;
+  --text: #FFFFFF;
   --muted: #8ba0bf;
-  --accent: #4dd0e1;
+  --accent: #00D4FF;
+  --accent-secondary: #3BA7FF;
   --green: #4caf50;
   --yellow: #ffb74d;
   --orange: #ff8a50;
@@ -37,9 +38,16 @@ body {
   border-bottom: 1px solid var(--border);
 }
 
-.topbar h1 {
-  font-size: 18px;
-  margin: 0;
+.brand {
+  display: flex;
+  align-items: center;
+  line-height: 0;
+}
+
+.brand-logo {
+  height: 34px;
+  width: auto;
+  display: block;
 }
 
 .topbar nav a {
@@ -222,10 +230,23 @@ input, select {
   gap: 12px;
 }
 
-.login-card h1 {
-  font-size: 18px;
-  margin: 0 0 4px;
-  text-align: center;
+.login-logo {
+  height: 64px;
+  width: auto;
+  display: block;
+  margin: 0 auto 4px;
+}
+
+.page-title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.page-title-mark {
+  height: 26px;
+  width: auto;
+  display: block;
 }
 
 .login-card label {

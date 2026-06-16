@@ -30,7 +30,9 @@ export default function App() {
   return (
     <div className="app-shell">
       <header className="topbar">
-        <h1>🛰️ Orion UAV Mission Planner</h1>
+        <a href="/" className="brand">
+          <img src="/brand/logo.svg" alt="Orion UAV Mission Planner" className="brand-logo" />
+        </a>
         <nav>
           <NavLink to="/" end>Dashboard</NavLink>
           <NavLink to="/uavs">UAVs</NavLink>

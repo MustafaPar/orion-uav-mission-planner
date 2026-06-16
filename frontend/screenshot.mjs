@@ -13,15 +13,17 @@ const browser = await chromium.launch({ executablePath: EDGE_PATH, headless: tru
 const page = await browser.newPage({ viewport: { width: 1440, height: 900 } });
 
 await page.goto('http://localhost:5173/');
+await page.evaluate(() => localStorage.clear());
+await page.reload();
 await page.waitForSelector('.login-card', { timeout: 10000 });
 await page.waitForTimeout(500);
 
-// --- Login ---
+// --- Login: screenshot the pristine empty form (no credentials shown), THEN log in ---
+await page.screenshot({ path: `${OUT_DIR}/01-login.png` });
 await page.fill('.login-card input[type="text"], .login-card input:not([type])', 'admin');
 await page.fill('.login-card input[type="password"]', 'admin123');
 await page.click('button[type="submit"]');
 await page.waitForTimeout(1500);
-await page.screenshot({ path: `${OUT_DIR}/01-login.png` });
 
 // --- Dashboard ---
 await page.waitForSelector('.dashboard-grid', { timeout: 5000 }).catch(() => {});

@@ -32,7 +32,10 @@ export default function DashboardPage() {
 
   return (
     <div>
-      <h2>Fleet Overview</h2>
+      <h2 className="page-title">
+        <img src="/brand/favicon.svg" alt="" className="page-title-mark" />
+        Fleet Overview
+      </h2>
       {error && <div className="error-banner">{error}</div>}
       {stats && (
         <div className="stats-grid">
