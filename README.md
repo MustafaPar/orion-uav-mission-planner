@@ -1,4 +1,4 @@
-# UAV Fleet Mission Planner
+# Orion UAV Mission Planner
 
 A defense-inspired mission planning and UAV fleet management simulation system built with **Spring Boot**, **React**, **PostgreSQL** and **Leaflet**.
 

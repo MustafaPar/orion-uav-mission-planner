@@ -8,7 +8,7 @@ export default function App() {
   return (
     <div className="app-shell">
       <header className="topbar">
-        <h1>🛰️ UAV Fleet Mission Planner</h1>
+        <h1>🛰️ Orion UAV Mission Planner</h1>
         <nav>
           <NavLink to="/" end>Dashboard</NavLink>
           <NavLink to="/uavs">UAVs</NavLink>

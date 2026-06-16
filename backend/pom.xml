@@ -12,9 +12,9 @@
     </parent>
 
     <groupId>com.uavfleet</groupId>
-    <artifactId>uav-fleet-mission-planner</artifactId>
+    <artifactId>orion-uav-mission-planner</artifactId>
     <version>1.0.0</version>
-    <name>uav-fleet-mission-planner</name>
+    <name>orion-uav-mission-planner</name>
     <description>Defense-inspired UAV fleet mission planning and simulation system</description>
 
     <properties>
